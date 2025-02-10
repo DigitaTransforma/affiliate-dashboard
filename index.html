@@ -1,1 +1,2918 @@
-Good to go
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdIQ Report</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #f5f7fa;
+            --text-color: #333;
+            --border-radius: 12px;
+            --spacing: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: var(--spacing);
+        }
+
+        .report-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: var(--spacing);
+        }
+
+        .report-title {
+            margin-bottom: var(--spacing);
+        }
+
+        .report-title h1 {
+            font-size: 2rem;
+            color: var(--text-color);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing);
+        }
+
+        .company-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .company-logo,
+        .coldiq-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            background: var(--secondary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .company-details h2 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .company-details .date-range {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: var(--text-color);
+        }
+
+        .date-range {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing);
+            margin-bottom: var(--spacing);
+        }
+
+        .metric-card {
+            background: var(--secondary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .metric-card h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .metric-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .top-posts {
+            margin-bottom: var(--spacing);
+        }
+
+        .top-posts h2 {
+            margin-bottom: 16px;
+        }
+
+        .post-preview {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: #eee;
+        }
+
+        .author-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .post-metrics {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .post-metrics span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tier1-leads {
+            margin-bottom: var(--spacing);
+        }
+
+        .tier1-leads h2 {
+            margin-bottom: 16px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: var(--secondary-color);
+            font-weight: 600;
+            color: #666;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #eee;
+        }
+
+        td a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        .view-all {
+            margin-top: 16px;
+            text-align: right;
+        }
+
+        .view-all a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .view-all a:hover {
+            text-decoration: underline;
+        }
+
+        .linkedin-section {
+            margin-bottom: var(--spacing);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metrics-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing);
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .post-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            background: #f0f0f0;
+        }
+
+        .author-info h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            margin: 4px 0;
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .post-date {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .post-content {
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .post-content p {
+            margin: 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        .post-metrics {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .metric .icon {
+            font-size: 1rem;
+        }
+
+        .metric .value {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .view-post {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .view-post:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1200px) {
+            .post-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .post-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .score {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .score.high {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+
+        .score.medium {
+            background-color: #fef7e0;
+            color: #b06000;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-buttons a {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+
+        .btn-linkedin {
+            background-color: #0a66c2;
+            color: white;
+        }
+
+        .btn-email {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .metric-value-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .metric-trend {
+            font-size: 0.875rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .metric-trend.positive {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+
+        .metric-trend.negative {
+            background-color: #fce8e6;
+            color: #c5221f;
+        }
+
+        .previous-value {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .trend-arrow {
+            font-size: 0.75rem;
+        }
+
+        .section-divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 48px 0;
+            width: 100%;
+        }
+
+        .linkedin-performance {
+            margin-top: 48px;
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+        }
+
+        .additional-posts {
+            margin: 32px 0;
+        }
+
+        .additional-posts h3 {
+            margin-bottom: 16px;
+        }
+
+        .post-preview {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-color);
+        }
+
+        .engagement-metrics {
+            display: flex;
+            gap: 12px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .btn-view {
+            padding: 4px 12px;
+            border-radius: 4px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .view-all-container {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .btn-view-all {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            height: 450px;
+            position: relative;
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        .revenue-chart {
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        .recent-signups {
+            margin-top: 32px;
+        }
+
+        .recent-signups .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .category-badge.product {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+
+        .category-badge.comparison {
+            background-color: #fef7e0;
+            color: #b06000;
+        }
+
+        .category-badge.pricing {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+        }
+
+        .page-link {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .page-link:hover {
+            text-decoration: underline;
+        }
+
+        .visit-count {
+            font-size: 0.75rem;
+            color: #666;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .visit-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+        }
+
+        .visit-item .page-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-family: monospace;
+        }
+
+        .visit-item .visit-count {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        .visit-separator {
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 4px 0;
+        }
+
+        .metrics-inline {
+            display: flex;
+            gap: 16px;
+        }
+
+        .metrics-inline .metric {
+            display: flex;
+            gap: 4px;
+        }
+
+        .metrics-inline .label {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .metrics-inline .value {
+            font-weight: 500;
+        }
+
+        .newsletter-link {
+            display: block;
+            font-weight: 500;
+        }
+
+        .click-date {
+            display: block;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .category-badge.featured {
+            background-color: #fef7e0;
+            color: #b06000;
+        }
+
+        .category-badge.mention {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+        }
+
+        .performance-col {
+            display: flex;
+            gap: 16px;
+        }
+
+        .performance-col span {
+            white-space: nowrap;
+        }
+
+        .newsletter-mentions {
+            margin-bottom: 40px;
+        }
+
+        .high-intent-clicks {
+            margin-top: 40px;
+        }
+
+        .performance-data {
+            white-space: nowrap;
+            font-size: 0.875rem;
+        }
+
+        .table-container table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-container table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metrics-dashboard {
+            margin-bottom: var(--spacing);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing);
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-card.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .dashboard-card.primary .metric-label,
+        .dashboard-card.primary .previous-value {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .metrics-grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing);
+        }
+
+        .metrics-row {
+            display: flex;
+            gap: 24px;
+        }
+
+        .metrics-row.compact {
+            gap: 16px;
+        }
+
+        .metric-group {
+            display: flex;
+            flex: 1;
+            gap: 24px;
+        }
+
+        .metric-item.large {
+            flex: 1;
+            padding: 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin: 8px 0;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .trend-indicator {
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .trend-indicator.positive {
+            background: #e6f4ea;
+            color: #137333;
+        }
+
+        .trend-indicator.negative {
+            background: #fce8e6;
+            color: #c5221f;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-group {
+                flex-direction: column;
+            }
+        }
+
+        .newsletter-preview {
+            padding: 16px;
+            background: rgba(0,0,0,0.02);
+            border-radius: 8px;
+        }
+
+        .newsletter-preview h4 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .newsletter-preview .date {
+            color: #666;
+            font-size: 0.875rem;
+            margin-bottom: 12px;
+        }
+
+        .activity-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .score {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .score.high {
+            background: #e6f4ea;
+            color: #137333;
+        }
+
+        .truncate-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 8px 0;
+        }
+
+        .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <!-- Report Title -->
+        <div class="report-title">
+            <h1>Partnership Performance Report - February, 2025</h1>
+        </div>
+
+        <!-- Company Header -->
+        <header class="report-header">
+            <div class="company-info">
+                <div class="company-logo">
+                    <div class="logo-placeholder">CN</div>
+                </div>
+                <div class="company-details">
+                    <h2>Apollo</h2>
+                    <p class="date-range">Report: 2025-01-01 - 2025-01-31</p>
+                </div>
+            </div>
+            <div class="coldiq-brand">
+                <div class="logo-placeholder">CIQ</div>
+            </div>
+        </header>
+
+        <div class="metrics-dashboard">
+            <!-- Performance Overview Card -->
+            <div class="dashboard-card primary">
+                <div class="card-header">
+                    <h3>Performance Overview</h3>
+                    <span class="date-range">February, 2025</span>
+                </div>
+                <div class="metrics-row">
+                    <div class="metric-group">
+                        <div class="metric-item large">
+                            <span class="metric-label">Total Revenue</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">$158.3k</span>
+                                <span class="metric-trend positive">↑ 12%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85%"></div>
+                            </div>
+                            <span class="previous-value">vs $141.3k last month</span>
+                        </div>
+                        <div class="metric-item large">
+                            <span class="metric-label">Total Engagement</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">12.5k</span>
+                                <span class="metric-trend positive">↑ 15%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                            <span class="previous-value">vs 10.9k last month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Channel Performance Cards -->
+            <div class="metrics-grid-container">
+                <!-- LinkedIn Performance -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>LinkedIn</h3>
+                        <div class="trend-indicator positive">↑ 18%</div>
+                    </div>
+                    <div class="metrics-row compact">
+                        <div class="metric-item">
+                            <span class="metric-label">Posts</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">13</span>
+                                <span class="metric-trend positive"> 0</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Engagement Rate</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">214.77</span>
+                                <span class="metric-trend positive">↑ 05%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Affiliate Performance -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Affiliate</h3>
+                        <div class="trend-indicator positive">↑ 22%</div>
+                    </div>
+                    <div class="metrics-row compact">
+                        <div class="metric-item">
+                            <span class="metric-label">New Revenue</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">$12.5k</span>
+                                <span class="metric-trend positive">↑ 15%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Signups</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">48</span>
+                                <span class="metric-trend positive">↑ 20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website Performance -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Website</h3>
+                        <div class="trend-indicator positive">↑ 15%</div>
+                    </div>
+                    <div class="metrics-row compact">
+                        <div class="metric-item">
+                            <span class="metric-label">Visitors</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">2,845</span>
+                                <span class="metric-trend positive">↑ 15%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">High-Intent</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">124</span>
+                                <span class="metric-trend positive">↑ 12%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Performance -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Newsletter</h3>
+                        <div class="trend-indicator positive">↑ 20%</div>
+                    </div>
+                    <div class="metrics-row compact">
+                        <div class="metric-item">
+                            <span class="metric-label">Opens</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">12,845</span>
+                                <span class="metric-trend positive">↑ 18%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">CTR</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">9.7%</span>
+                                <span class="metric-trend positive">↑ 4%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Content & Leads Overview -->
+        <div class="metrics-grid-container">
+            <!-- Top Posts Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Top Performing Post</h3>
+                    <a href="#" class="view-all">View All →</a>
+                </div>
+                <div class="post-preview">
+                    <div class="post-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Alex Vacca 🧠🛠️</h4>
+                            <p>Founder / CEO @ ColdIQ</p>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p class="truncate-text">My first client paid me $1,500.
+
+This week we are ...</p>
+                    </div>
+                    <div class="metrics-row compact">
+                        <div class="metric-item">
+                            <span class="metric-label">Engagement</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">472</span>
+                                <span class="metric-trend positive">↑ 15%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Clicks</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">12</span>
+                                <span class="metric-trend positive">↑ 20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Newsletter Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Best Performing Newsletter</h3>
+                    <a href="#" class="view-all">View All →</a>
+                </div>
+                <div class="newsletter-preview">
+                    <h4>Top SaaS Tools for 2025</h4>
+                    <p class="date">Dec 28, 2024</p>
+                    <span class="category-badge featured">Featured Article</span>
+                    <div class="metrics-row compact">
+                        <div class="metric-item">
+                            <span class="metric-label">Opens</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">15.4k</span>
+                                <span class="metric-trend positive">↑ 18%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">CTR</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value">5.4%</span>
+                                <span class="metric-trend positive">↑ 12%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add significant spacing between content blocks -->
+        <div style="height: 48px;"></div>
+
+        <!-- Most Promising Leads -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>Most Promising Leads</h3>
+                <a href="#" class="view-all">View All in Google Sheet →</a>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Lead Score</th>
+                            <th>Recent Activity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Thomas Anderson</span>
+                                </div>
+                            </td>
+                            <td>Matrix Solutions</td>
+                            <td>Head of Sales</td>
+                            <td><span class="score high">98</span></td>
+                            <td>
+                                <div class="activity-tags">
+                                    <span class="category-badge product">Product Page</span>
+                                    <span class="category-badge pricing">Pricing</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-linkedin">LinkedIn</a>
+                                    <a href="#" class="btn-email">Email</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Add three more leads -->
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Sarah Miller</span>
+                                </div>
+                            </td>
+                            <td>Oracle</td>
+                            <td>Cloud Infrastructure Director</td>
+                            <td><span class="score high">95</span></td>
+                            <td>
+                                <div class="activity-tags">
+                                    <span class="category-badge product">Product Page</span>
+                                    <span class="category-badge comparison">Comparison</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-linkedin">LinkedIn</a>
+                                    <a href="#" class="btn-email">Email</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>David Chen</span>
+                                </div>
+                            </td>
+                            <td>Salesforce</td>
+                            <td>Head of Sales Operations</td>
+                            <td><span class="score high">92</span></td>
+                            <td>
+                                <div class="activity-tags">
+                                    <span class="category-badge pricing">Pricing</span>
+                                    <span class="category-badge product">Product Page</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-linkedin">LinkedIn</a>
+                                    <a href="#" class="btn-email">Email</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Emma Wilson</span>
+                                </div>
+                            </td>
+                            <td>AWS</td>
+                            <td>Solutions Architect</td>
+                            <td><span class="score high">88</span></td>
+                            <td>
+                                <div class="activity-tags">
+                                    <span class="category-badge comparison">Comparison</span>
+                                    <span class="category-badge pricing">Pricing</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-linkedin">LinkedIn</a>
+                                    <a href="#" class="btn-email">Email</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add section divider and spacing -->
+        <div class="section-divider"></div>
+        <div style="height: 48px;"></div>
+
+        <section class="linkedin-performance">
+            <div class="section-header">
+                <h2>LinkedIn Performance for Apollo</h2>
+                <div class="date-range">2025-01-01 - 2025-01-31</div>
+            </div>
+
+            <!-- Metrics Summary -->
+            <div class="metrics-summary">
+                <div class="metric-item">
+                    <span class="metric-label">Posts Mentioning Apollo</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">13</span>
+                        <span class="metric-trend positive">
+                            <span class="trend-arrow">↑</span>
+                            <span class="trend-value">0%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: 13</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Engagement on Apollo Posts</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">214.77%</span>
+                        <span class="metric-trend positive">
+                            
+                            <span class="trend-value">0%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: 214.77%</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Total Apollo Impressions</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">158301</span>
+                        <span class="metric-trend positive">
+                            <span class="trend-value"> 0%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: 158301</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Potential Apollo Leads</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">351</span>
+                        <span class="metric-trend negative">
+                            
+                            <span class="trend-value">0%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: 351</span>
+                </div>
+            </div>
+
+            <!-- Top Posts Section -->
+            <div class="top-posts">
+                <h3>Top Performing Posts Mentioning Apollo</h3>
+                <div class="post-grid">
+                    <!-- Post 1 -->
+                    <div class="post-card">
+                        <div class="post-header">
+                            <div class="user-avatar"></div>
+                            <div class="author-info">
+                                <h4>Dan Rosenthal</h4>
+                                <p>Founder / CEO @ ColdIQ</p>
+                                <span class="post-date">Posted 1w ago</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>Don't hire humans,
+
+Here's why:
+
+AI Agents work 24/7, follow all instructions, and are cheap.
+
+
+I'm obviously kidding about not hiring humans.
+
+But having an agent workforce is becoming a no-brainer.
+
+And with "human-in-the-loop" workflows, 
+
+agents can be there empower to your existing staff.
+
+This will fundamentally change how companies choose to scale.
+
+Agent-savvy startups will get A LOT more done, with less.
+
+And giant enterprise orgs will find new efficiency.
+
+I've been deep-diving into agents.
+
+And here are the top categories + tools I'm looking at:
+
+1️⃣ No-code Agent Builders
+‣ n8n
+‣ Relevance AI
+‣ Lindy
+‣ Wordware (YC S24)
+‣ Dify
+‣ Taskade
+
+2️⃣ Custom Enterprise Frameworks + Platforms
+‣ StackAI
+‣ Microsoft Autogen
+‣ LlamaIndex
+‣ CrewAI
+‣ LangChain
+‣ Cohere
+
+3️⃣ AI GTM Copilot 
+‣ Tome
+‣ Aomni
+‣ Copy.ai
+‣ Jasper
+
+4️⃣ Sales Agents
+‣ Artisan
+‣ 11x
+‣ Topo (YC W24)
+‣ AISDR
+
+5️⃣ Customer Service Agents
+‣ Intercom
+‣ Parahelp
+‣ Forethought
+‣ Sierra
+
+6️⃣ Research Agents
+‣ Claygent
+‣ Airtop
+‣ Attio (Research Agent)
+
+7️⃣ AI Executive Assistants
+‣ Fyxer AI
+‣ Tasker AI
+‣ Shortwave
+
+8️⃣ Pre-made Agent Catalogues
+‣ Beam AI
+‣ sintra.ai
+‣ Lyzr AI
+
+What did I miss? 👇</p>
+                        </div>
+                        <div class="post-metrics">
+                            <div class="metric">
+                                <span class="icon">👍</span>
+                                <span class="value">376</span>
+                            </div>
+                            <div class="metric">
+                                <span class="icon">💬</span>
+                                <span class="value">116</span>
+                            </div>
+                            <div class="metric">
+                                <span class="icon">👁️</span>
+                                <span class="value">53784</span>
+                            </div>
+                        </div>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7290062366799507458/" class="view-post">View on LinkedIn →</a>
+                    </div>
+
+                    <!-- Post 2 -->
+                    <div class="post-card">
+                        <div class="post-header">
+                            <div class="user-avatar"></div>
+                            <div class="author-info">
+                                <h4>Dan Rosenthal</h4>
+                                <p>Head of Growth @ ColdIQ</p>
+                                <span class="post-date">Posted 1w ago</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>We booked meetings with Tesla, Typeform, Deel, Sony and Roche using cold email.
+
+Using these 5 campaign strategies:
+
+
+1️⃣ Account-based Marketing
+
+With enough time, I'd always map out your Total Addressable Market (TAM).
+
+To do account scoring + prioritization on your target companies.
+
+This looks something like:
+
+→ Building company lists from prospecting databases like Sales Nav, Apollo.io, ZoomInfo, or Congism
+→ Using lookalike platforms like Ocean.io or PandaMatch 🐼 (great for niche lists).
+→ Scraping online directories with Apify, ZenRows, or Captain Data.
+→ Grabbing data from social media using PhantomBuster or influencers.club.
+→ Using specialised databases like Store Leads for ecom, or Clutch for agencies.
+→ Scraping Gmaps with Serper, Outscraper, or Clay (for local businesses).
+
+We booked Tesla using a multi-threading campaign, as they were a dream account for a client.
+
+
+2️⃣ Contact-based
+
+Ideally, you find people in your target accounts.
+
+But sometimes, you'll start with the person by:
+
+→ Finding specific job titles on prospecting databases.
+→ Using data from SN with HeyReach, Prospeo.io, or Vayne.
+→ Enriching for contact info with FullEnrich, LeadMagic, or Prospeo.
+→ Or, with “Find people” in Clay.
+
+We booked Typeform by looking for EU-based IT Managers in mid-sized tech companies.
+
+
+3️⃣ Signal-based
+
+Signals or “triggers” bring relevance to your outreach.
+
+Here’s what has worked best for us:
+
+→ Hiring signals using Clay, TheirStack, or PredictLeads.
+→ Champion tracking with Common Room, UserGems 💎, or Champify.
+→ Review site intent with G2 or ColdIQ (coming soon)
+→ LinkedIn topical intent with Trigify.io and Google intent with Vector 👻
+→ Funding announcements using Crunchbase or Owler.
+→ Technographics with BuiltWith or HG Insights.
+
+Competitor engagement, product reviews, and company news also work well.
+
+You can run a lot of these plays with just Common Room.
+
+We booked a meeting with Deel from a technographic signal that integrated with our client's tool.
+
+
+4️⃣ Inbound-led outbound
+
+My personal favorite.
+
+Here, you're using inbound signals to automatically engage with potential leads:
+
+→ Website visitor deanonymization with RB2B, Warmly, or MeetVisitors
+→ Extracting profile viewers using Teamfluence™ or Captain Data.
+→ Post engagement using Common Room or Trigify.
+→ E-mail gated content using Distribute or Tally.
+→ Paid ads intent using Fibbler or Influ2.
+→ Your LI connections.
+
+I'd recommend AI lead scoring systems to qualify prospects.
+
+We booked Sony through picking up a website visit with RB2B, and sending an AI-personalized email.
+
+
+5️⃣ Reengagement
+
+We’ve had great success reengaging with existing leads.
+
+This could be:
+
+→ Contacts from your CRM.
+→ Event leads.
+→ Mailing list subs.
+→ Prospects from old campaigns.
+→ Or incomplete form fillers using Chili Piper or Default.
+
+We booked Roche via a campaign targeting cold CRM leads.
+
+
+Which of these strategies is your favorite?👇</p>
+                        </div>
+                        <div class="post-metrics">
+                            <div class="metric">
+                                <span class="icon">👍</span>
+                                <span class="value">460</span>
+                            </div>
+                            <div class="metric">
+                                <span class="icon">💬</span>
+                                <span class="value">110</span>
+                            </div>
+                            <div class="metric">
+                                <span class="icon">👁️</span>
+                                <span class="value">43128</span>
+                            </div>
+                        </div>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7285699579923038208/" class="view-post">View on LinkedIn →</a>
+                    </div>
+
+                    <!-- Post 3 -->
+                    <div class="post-card">
+                        <div class="post-header">
+                            <div class="user-avatar"></div>
+                            <div class="author-info">
+                                <h4>Alex Vacca 🧠🛠️</h4>
+                                <p>Product Lead @ ColdIQ</p>
+                                <span class="post-date">Posted 1w ago</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>My first client paid me $1,500.
+
+This week we are receiving a payment of $49,000.
+
+20 months separate those 2 transactions.
+
+What changed?
+
+1. We solved bigger problems
+- The money you earn is directly linked to the scale of the problems you solve.
+- At $1,500, I was sending 3000 cold emails for the client. Today, we are building entire GTM systems for big companies with 500+ employees.
+
+2. We built credibility over time
+- People trust us to handle major projects only because we have done it 100s times before.
+- Reputation isn’t built overnight. It grows with each valuable post and every time you make a client happy
+
+3. We stayed in the game long enough
+- Always under-promise, then over-deliver for every client you sign.
+- Consistency adds up. When you stick around long enough, more people start to trust you.
+
+That $49k transaction isn’t just about money. 
+
+It’s a testament to how many companies now trust us to solve big problems for them.
+
+If you’re in your “$1,500 phase” right now:
+- Keep showing up with your content.
+- Keep building trust, one client at a time.
+- Aim to always solve bigger and bigger problems
+
+Eventually, the $49,000 transaction will come too.
+
+Money is a byproduct of the problems you solve.</p>
+                        </div>
+                        <div class="post-metrics">
+                            <div class="metric">
+                                <span class="icon">👍</span>
+                                <span class="value">289</span>
+                            </div>
+                            <div class="metric">
+                                <span class="icon">💬</span>
+                                <span class="value">181</span>
+                            </div>
+                            <div class="metric">
+                                <span class="icon">👁️</span>
+                                <span class="value">18770</span>
+                            </div>
+                        </div>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7289967773068226561/" class="view-post">View on LinkedIn →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Targeted Leads Section -->
+            <div class="leads-section">
+                <div class="section-header">
+                    <h3>Targeted Leads for Apollo</h3>
+                    <a href="https://docs.google.com/spreadsheets/d/176j7whcbqhqZgd95YOnkJEY6uH4ExGAGI3L3MROACDU" class="view-all" target="_blank">View all in Google Sheet →</a>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contact</th>
+                                <th>Company</th>
+                                <th>Role</th>
+                                <th>Lead Score</th>
+                                <th>Engagement</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score high">98</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 6</span>
+                                        <span>👍 8</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAAC3eP5cBe0hWIsBRJK_TDU4uvEFwV-ZFq24" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score high">95</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 4</span>
+                                        <span>👍 3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAACW7D2ABI1LWTlDIsuxoGKLKe4TiXM0bAg0" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score high">92</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 5</span>
+                                        <span>👍 4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAADMqXzgBc7ZrQ7LniJhiLasRpRjTaoq6HYw" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score high">88</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 3</span>
+                                        <span>👍 6</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAADhSQz0BHg70l3eqVJcky33nrD-O-Y-3JkM" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score high">85</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 4</span>
+                                        <span>👍 4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAADqlSooByGu_d2TCjBsN67AlHsnlURyKnzA" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score medium">78</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 2</span>
+                                        <span>👍 5</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAAAFpWzYBllCsM6FKlb_7xBbA0ks4otApcRI" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score medium">75</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 3</span>
+                                        <span>👍 3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAACyVFg8BCseKRosnR1MklywYpQPabiLd3WY" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score medium">72</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 2</span>
+                                        <span>👍 4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAAANHAtUBkZfDnhFUipkO4uDJrNApSEskMDU" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score medium">70</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 2</span>
+                                        <span>👍 3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAAABii5IBPIe8h31i9ExyPFt0FvXrZIZGQk4" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span></span>
+                                    </div>
+                                </td>
+                                <td>/</td>
+                                <td></td>
+                                <td><span class="score medium">68</span></td>
+                                <td>
+                                    <div class="engagement-metrics">
+                                        <span>💬 1</span>
+                                        <span>👍 4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://www.linkedin.com/in/ACoAAC_50FIBaRH7xw-m39J9ZC-NMPj-GPkax1M" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="additional-posts">
+            <h3>Other Recent Posts Mentioning Apollo</h3>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Author</th>
+                            <th>Role</th>
+                            <th>Preview</th>
+                            <th>Posted</th>
+                            <th>Engagement</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Dan Rosenthal</span>
+                                </div>
+                            </td>
+                            <td>-</td>
+                            <td class="post-preview">90% of outbound success comes from these 4 pillars:
+
+Deliverability, Copy, Targeting, and Reply Management.
+
+But the last 10%?
+
+Comes from automations that support these pillars.
+
+If you would've asked top GTM agencies what the main downside of Instantly.ai was,
+
+They would've said the somewhat limited API.
+
+But after releasing their v2 API (x2 endpoints available),
+
+these limitations were mostly lifted.
+
+Instantly.ai has new API endpoints for:
+
+↳ Creating campaigns
+↳ Connecting email accounts
+↳ Generating/updating lead lists
+↳ Initiating inbox placement tests
+↳ Fetching inbox placement reports
+
+So here are automations I'd recommend across the pillars:
+
+1️⃣ Deliverability
+
+→ Using campaign analytics, you can now automatically trigger inbox placement tests on underperforming accounts. 
+
+If you're blacklisted or not inboxing enough, you can pause that inbox.
+
+2️⃣ Copy
+
+→ There's no secret automation that will help you write copy that resonates. Instead I'd use webhooks and the campaign analytics API to create custom reporting dashboards.
+
+That way, you can understand which market segments and angles are performing best, and why.
+
+3️⃣ Targeting
+
+→ Once you find winning angles, you can turn campaigns "evergreen".
+
+With Clay or automation tools like n8n, you can automatically add leads to a campaign when new contacts fit your criteria, or a new signal is found (e.g. job opening).
+
+4️⃣ Reply Management
+
+→ You can use webhooks to collect data on every single reply. We funnel this into Clay (for enrichments + AI Categorisation) and then Airtable (for reply management).
+
+From Airtable, we approve AI categorisations, assign leads to subsequences, and send interested leads to our clients.
+
+
+Any useful automations I missed? 👇</td>
+                            <td>1w ago</td>
+                            <td>
+                                <div class="engagement-metrics">
+                                    <span>👍 61</span>
+                                    <span>💬 35</span>
+                                    <span>👁️ 4699</span>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7290775196976771073/" class="btn-view">View on LinkedIn</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Alex Vacca 🧠🛠️</span>
+                                </div>
+                            </td>
+                            <td>-</td>
+                            <td class="post-preview">We built a 7-figure business in less than 2 years.
+
+Here's how I did it:
+
+2017: Joined a coding bootcamp at Le Wagon because I don’t know what to study.
+
+2018: During the bootcamp, one guys tells me about Bitcoin. Made $40K. Use the money to do a world trip for a whole year.
+
+2019: Read a book about growth hacking during my travels. Applied and got accepted into a growth hacking program at Growth Tribe. Moved to Germany for my first real job.
+
+2020: Moved to Berlin to start a food start-up. “Brain Bars” for office workers. Completely flopped, but learned a lot.
+
+2021: Needed a stable paycheck. Worked at Razor Group, focusing on operations. Saw hyperscaling from the inside.
+
+2022: Joined World. I understand there are different levels in this game. Saw how top teams work together.
+
+2023: Quit my job. Teamed up with Michel Lieben 🧠 at ColdIQ. Had to learn everything about sales and outbound from scratch.
+
+2024: Scaled from 20k/month to 250k/month and had to learn how to manage a team of 20.
+
+2025: Aiming for $1M/month with the business while reminding me that you are never fully ready for the next step.
+
+”You can’t connect the dots looking forward— you can only connect them looking backward.”
+
+The decision you are putting off might not make complete sense right now, but it might be the biggest turning point in your life.
+
+From the outside, ColdIQ might look like an overnight success.
+
+But really, it’s a decade of small decisions and failed experiments for me and Michel Lieben 🧠.
+
+Every random step adds up in the end.
+
+Take that first step.</td>
+                            <td>1w ago</td>
+                            <td>
+                                <div class="engagement-metrics">
+                                    <span>👍 153</span>
+                                    <span>💬 119</span>
+                                    <span>👁️ 3442</span>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7290692963205079042/" class="btn-view">View on LinkedIn</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Alex Vacca 🧠🛠️</span>
+                                </div>
+                            </td>
+                            <td>-</td>
+                            <td class="post-preview">Here is how to get more replies from cold emails.
+
+We analyzed 100s of outbound campaigns at our agency.
+
+To find what really makes prospects answer.
+
+It’s all about intent signals.
+
+What are intent signals?
+
+They’re clues that a prospect might be ready to talk or buy.
+
+- Maybe they visited your site or changed jobs.
+- They could be in the news for a product launch.
+- Each “signal” boosts your chance of getting a reply.
+
+
+Here are 4 intent signals we had great success with:
+
+1.	Re-Engaging Website Visitors
+
+- People who visit your website are curious.
+- Tools like Common Room, Instantly.ai, or RB2B help identify them.
+- Personalize your email around what pages they saw and why they might need you.
+
+2.	Job Changes
+
+- Someone left their old job and just started somewhere new.
+- Tools like Common Room, LoneScale, or Clay track this.
+- They might want to bring your solution to their new company.
+
+3.	Job Openings
+
+- If they’re hiring for roles that relate to your product, they have a budget and a need.
+- Tools like Clay or Unify show these openings.
+- Bonus: Mention the job description’s priorities in your outreach.
+
+4.	News Announcements
+
+- Could be funding, mergers, or product launches.
+- Tools like Clay or Common Room’s AI can spot relevant headlines.
+- Congratulate them on the news, then connect it to your offer.
+
+What’s the best intent signal you’ve used for outbound? Let me know in the comments.</td>
+                            <td>2w ago</td>
+                            <td>
+                                <div class="engagement-metrics">
+                                    <span>👍 140</span>
+                                    <span>💬 77</span>
+                                    <span>👁️ 10304</span>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7290330166235467776/" class="btn-view">View on LinkedIn</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Dan Rosenthal</span>
+                                </div>
+                            </td>
+                            <td>-</td>
+                            <td class="post-preview">Don't hire humans,
+
+Here's why:
+
+AI Agents work 24/7, follow all instructions, and are cheap.
+
+
+I'm obviously kidding about not hiring humans.
+
+But having an agent workforce is becoming a no-brainer.
+
+And with "human-in-the-loop" workflows, 
+
+agents can be there empower to your existing staff.
+
+This will fundamentally change how companies choose to scale.
+
+Agent-savvy startups will get A LOT more done, with less.
+
+And giant enterprise orgs will find new efficiency.
+
+I've been deep-diving into agents.
+
+And here are the top categories + tools I'm looking at:
+
+1️⃣ No-code Agent Builders
+‣ n8n
+‣ Relevance AI
+‣ Lindy
+‣ Wordware (YC S24)
+‣ Dify
+‣ Taskade
+
+2️⃣ Custom Enterprise Frameworks + Platforms
+‣ StackAI
+‣ Microsoft Autogen
+‣ LlamaIndex
+‣ CrewAI
+‣ LangChain
+‣ Cohere
+
+3️⃣ AI GTM Copilot 
+‣ Tome
+‣ Aomni
+‣ Copy.ai
+‣ Jasper
+
+4️⃣ Sales Agents
+‣ Artisan
+‣ 11x
+‣ Topo (YC W24)
+‣ AISDR
+
+5️⃣ Customer Service Agents
+‣ Intercom
+‣ Parahelp
+‣ Forethought
+‣ Sierra
+
+6️⃣ Research Agents
+‣ Claygent
+‣ Airtop
+‣ Attio (Research Agent)
+
+7️⃣ AI Executive Assistants
+‣ Fyxer AI
+‣ Tasker AI
+‣ Shortwave
+
+8️⃣ Pre-made Agent Catalogues
+‣ Beam AI
+‣ sintra.ai
+‣ Lyzr AI
+
+What did I miss? 👇</td>
+                            <td>2w ago</td>
+                            <td>
+                                <div class="engagement-metrics">
+                                    <span>👍 376</span>
+                                    <span>💬 116</span>
+                                    <span>👁️ 53784</span>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7290062366799507458/" class="btn-view">View on LinkedIn</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar"></div>
+                                    <span>Alex Vacca 🧠🛠️</span>
+                                </div>
+                            </td>
+                            <td>-</td>
+                            <td class="post-preview">My first client paid me $1,500.
+
+This week we are receiving a payment of $49,000.
+
+20 months separate those 2 transactions.
+
+What changed?
+
+1. We solved bigger problems
+- The money you earn is directly linked to the scale of the problems you solve.
+- At $1,500, I was sending 3000 cold emails for the client. Today, we are building entire GTM systems for big companies with 500+ employees.
+
+2. We built credibility over time
+- People trust us to handle major projects only because we have done it 100s times before.
+- Reputation isn’t built overnight. It grows with each valuable post and every time you make a client happy
+
+3. We stayed in the game long enough
+- Always under-promise, then over-deliver for every client you sign.
+- Consistency adds up. When you stick around long enough, more people start to trust you.
+
+That $49k transaction isn’t just about money. 
+
+It’s a testament to how many companies now trust us to solve big problems for them.
+
+If you’re in your “$1,500 phase” right now:
+- Keep showing up with your content.
+- Keep building trust, one client at a time.
+- Aim to always solve bigger and bigger problems
+
+Eventually, the $49,000 transaction will come too.
+
+Money is a byproduct of the problems you solve.</td>
+                            <td>2w ago</td>
+                            <td>
+                                <div class="engagement-metrics">
+                                    <span>👍 289</span>
+                                    <span>💬 181</span>
+                                    <span>👁️ 18770</span>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7289967773068226561/" class="btn-view">View on LinkedIn</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="view-all-container">
+                <a href="#" class="btn-view-all">View All Posts →</a>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- New Affiliate Performance Section -->
+        <section class="affiliate-performance">
+            <div class="section-header">
+                <h2>Affiliate Performance</h2>
+                <div class="date-range">December 1, 2024 - December 31, 2024</div>
+            </div>
+
+            <!-- Metrics Summary -->
+            <div class="metrics-summary">
+                <div class="metric-item">
+                    <span class="metric-label">Total Clicks</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">1,245</span>
+                        <span class="metric-trend positive">
+                            <span class="trend-arrow">↑</span>
+                            <span class="trend-value">8%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: 1,152</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">New Revenue</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">$12.5k</span>
+                        <span class="metric-trend positive">
+                            <span class="trend-arrow">↑</span>
+                            <span class="trend-value">15%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: $10.9k</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Total Revenue</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">$158.3k</span>
+                        <span class="metric-trend positive">
+                            <span class="trend-arrow">↑</span>
+                            <span class="trend-value">12%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Historical Total</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">New Signups</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">48</span>
+                        <span class="metric-trend positive">
+                            <span class="trend-arrow">↑</span>
+                            <span class="trend-value">20%</span>
+                        </span>
+                    </div>
+                    <span class="previous-value">Previous: 40</span>
+                </div>
+            </div>
+
+            <!-- Revenue Chart -->
+            <div class="chart-container">
+                <h3>Revenue Last 12 Months</h3>
+                <canvas id="affiliateRevenueChart" class="revenue-chart"></canvas>
+            </div>
+
+            <!-- Recent Signups -->
+            <div class="recent-signups">
+                <div class="section-header">
+                    <h3>Last 30 Days Affiliate Signups</h3>
+                    <a href="#" class="view-all">View all in Google Sheet →</a>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contact</th>
+                                <th>Company</th>
+                                <th>Domain</th>
+                                <th>Role</th>
+                                <th>Revenue</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Robert Smith</span>
+                                    </div>
+                                </td>
+                                <td>TechCorp</td>
+                                <td>techcorp.com</td>
+                                <td>Marketing Director</td>
+                                <td>$2,450</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Sarah Chen</span>
+                                    </div>
+                                </td>
+                                <td>CloudTech</td>
+                                <td>cloudtech.io</td>
+                                <td>Sales Director</td>
+                                <td>$1,850</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>James Wilson</span>
+                                    </div>
+                                </td>
+                                <td>DataFlow</td>
+                                <td>dataflow.net</td>
+                                <td>Head of Growth</td>
+                                <td>$2,100</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Emma Davis</span>
+                                    </div>
+                                </td>
+                                <td>SalesPro</td>
+                                <td>salespro.com</td>
+                                <td>Revenue Operations</td>
+                                <td>$1,950</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Michael Chang</span>
+                                    </div>
+                                </td>
+                                <td>LeadGen</td>
+                                <td>leadgen.io</td>
+                                <td>Sales Operations</td>
+                                <td>$2,300</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add divider and spacing between sections -->
+        <div class="section-divider"></div>
+
+        <!-- Website Visitors Section -->
+        <section class="website-visitors">
+            <div class="section-header">
+                <h2>Website Visitor Analytics</h2>
+                <div class="date-range">December 1, 2024 - December 31, 2024</div>
+            </div>
+
+            <!-- Metrics Summary -->
+            <div class="metrics-summary">
+                <div class="metric-item">
+                    <span class="metric-label">Total Website Visitors</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">2,845</span>
+                        <span class="metric-trend positive">↑ 15%</span>
+                    </div>
+                    <span class="previous-value">Previous: 2,474</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Company Page Visitors</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">486</span>
+                        <span class="metric-trend positive">↑ 8%</span>
+                    </div>
+                    <span class="previous-value">Previous: 450</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">High-Intent Visitors</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">124</span>
+                        <span class="metric-trend positive">↑ 12%</span>
+                    </div>
+                    <span class="previous-value">Previous: 111</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Tier 1 & 2 Visitors</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">45</span>
+                        <span class="metric-trend positive">↑ 25%</span>
+                    </div>
+                    <span class="previous-value">Previous: 36</span>
+                </div>
+            </div>
+
+            <!-- High-Intent Visitors -->
+            <div class="high-intent-visitors">
+                <div class="section-header">
+                    <h3>High-Intent Visitors</h3>
+                    <a href="#" class="view-all">View all in Google Sheet →</a>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contact</th>
+                                <th>Company</th>
+                                <th>Domain</th>
+                                <th>Role</th>
+                                <th>Pages Visited</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Thomas Anderson</span>
+                                    </div>
+                                </td>
+                                <td>Matrix Solutions</td>
+                                <td>matrix-solutions.com</td>
+                                <td>Head of Sales</td>
+                                <td class="page-visits">
+                                    <div class="visit-item">
+                                        <span class="category-badge product">Product</span>
+                                        <a href="/product/features" class="page-link">/product/features</a>
+                                        <span class="visit-count">3 visits</span>
+                                    </div>
+                                    <div class="visit-item">
+                                        <span class="category-badge pricing">Pricing</span>
+                                        <a href="/pricing/enterprise" class="page-link">/pricing/enterprise</a>
+                                        <span class="visit-count">2 visits</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Emily Watson</span>
+                                    </div>
+                                </td>
+                                <td>SalesForce</td>
+                                <td>salesforce.com</td>
+                                <td>Sales Operations</td>
+                                <td class="page-visits">
+                                    <div class="visit-item">
+                                        <span class="category-badge comparison">Comparison</span>
+                                        <a href="/compare/salesforce" class="page-link">/compare/salesforce</a>
+                                        <span class="visit-count">4 visits</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Alex Turner</span>
+                                    </div>
+                                </td>
+                                <td>Arctic Labs</td>
+                                <td>arcticlabs.io</td>
+                                <td>Growth Lead</td>
+                                <td class="page-visits">
+                                    <div class="visit-item">
+                                        <span class="category-badge pricing">Pricing</span>
+                                        <a href="/pricing/enterprise" class="page-link">/pricing/enterprise</a>
+                                        <span class="visit-count">6 visits</span>
+                                    </div>
+                                    <div class="visit-item">
+                                        <span class="category-badge product">Product</span>
+                                        <a href="/product/features" class="page-link">/product/features</a>
+                                        <span class="visit-count">2 visits</span>
+                                    </div>
+                                    <div class="visit-item">
+                                        <span class="category-badge comparison">Comparison</span>
+                                        <a href="/compare" class="page-link">/compare</a>
+                                        <span class="visit-count">1 visit</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Sarah Chen</span>
+                                    </div>
+                                </td>
+                                <td>TechFlow</td>
+                                <td>techflow.com</td>
+                                <td>VP Sales</td>
+                                <td class="page-visits">
+                                    <div class="visit-item">
+                                        <span class="category-badge product">Product</span>
+                                        <a href="/product/features" class="page-link">/product/features</a>
+                                        <span class="visit-count">5 visits</span>
+                                    </div>
+                                    <div class="visit-item">
+                                        <span class="category-badge pricing">Pricing</span>
+                                        <a href="/pricing/enterprise" class="page-link">/pricing/enterprise</a>
+                                        <span class="visit-count">3 visits</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Michael Chang</span>
+                                    </div>
+                                </td>
+                                <td>DataFlow</td>
+                                <td>dataflow.net</td>
+                                <td>CTO</td>
+                                <td class="page-visits">
+                                    <div class="visit-item">
+                                        <span class="category-badge comparison">Comparison</span>
+                                        <a href="/compare" class="page-link">/compare</a>
+                                        <span class="visit-count">4 visits</span>
+                                    </div>
+                                    <div class="visit-item">
+                                        <span class="category-badge product">Product</span>
+                                        <a href="/product/features" class="page-link">/product/features</a>
+                                        <span class="visit-count">2 visits</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Rachel Kim</span>
+                                    </div>
+                                </td>
+                                <td>TechGrowth</td>
+                                <td>techgrowth.com</td>
+                                <td>Growth Manager</td>
+                                <td class="page-visits">
+                                    <div class="visit-item">
+                                        <span class="category-badge pricing">Pricing</span>
+                                        <a href="/pricing/enterprise" class="page-link">/pricing/enterprise</a>
+                                        <span class="visit-count">3 visits</span>
+                                    </div>
+                                    <div class="visit-item">
+                                        <span class="category-badge comparison">Comparison</span>
+                                        <a href="/compare" class="page-link">/compare</a>
+                                        <span class="visit-count">2 visits</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add divider and spacing between sections -->
+        <div class="section-divider"></div>
+
+        <!-- Newsletter Performance Section -->
+        <section class="newsletter-performance">
+            <div class="section-header">
+                <h2>Newsletter Performance</h2>
+                <div class="date-range">December 1, 2024 - December 31, 2024</div>
+            </div>
+
+            <!-- Metrics Summary -->
+            <div class="metrics-summary">
+                <div class="metric-item">
+                    <span class="metric-label">Total Newsletters Sent</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">24</span>
+                        <span class="metric-trend positive">↑ 20%</span>
+                    </div>
+                    <span class="previous-value">Previous: 20</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Newsletters Mentioning {Brand}</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">4</span>
+                        <span class="metric-trend positive">↑ 33%</span>
+                    </div>
+                    <span class="previous-value">Previous: 3</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Total Opens</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">12,845</span>
+                        <span class="metric-trend positive">↑ 18%</span>
+                    </div>
+                    <span class="previous-value">Previous: 10,885</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Total Clicks</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">1,245</span>
+                        <span class="metric-trend positive">↑ 22%</span>
+                    </div>
+                    <span class="previous-value">Previous: 1,020</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Avg. CTR</span>
+                    <div class="metric-value-container">
+                        <span class="metric-value">9.7%</span>
+                        <span class="metric-trend positive">↑ 4%</span>
+                    </div>
+                    <span class="previous-value">Previous: 9.3%</span>
+                </div>
+            </div>
+
+            <!-- Newsletter Mentions -->
+            <div class="newsletter-mentions">
+                <div class="section-header">
+                    <h3>Newsletter Mentions</h3>
+                    <a href="#" class="view-all">View all in Google Sheet →</a>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Newsletter Date</th>
+                                <th>Subject</th>
+                                <th>Mention Type</th>
+                                <th>Performance</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dec 28, 2024</td>
+                                <td>Top SaaS Tools for 2025</td>
+                                <td><span class="category-badge featured">Featured</span></td>
+                                <td class="performance-data">
+                                    Sent: 45,230 &nbsp;&nbsp; Opens: 15,428 &nbsp;&nbsp; Clicks: 842 &nbsp;&nbsp; CTR: 5.4%
+                                </td>
+                                <td><a href="#" class="btn-view">View Newsletter</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dec 21, 2024</td>
+                                <td>Sales Tech Stack Guide</td>
+                                <td><span class="category-badge mention">Mention</span></td>
+                                <td class="performance-data">
+                                    Sent: 44,850 &nbsp;&nbsp; Opens: 14,352 &nbsp;&nbsp; Clicks: 623 &nbsp;&nbsp; CTR: 4.3%
+                                </td>
+                                <td><a href="#" class="btn-view">View Newsletter</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dec 14, 2024</td>
+                                <td>Enterprise Software Trends</td>
+                                <td><span class="category-badge featured">Featured</span></td>
+                                <td class="performance-data">
+                                    Sent: 43,920 &nbsp;&nbsp; Opens: 14,890 &nbsp;&nbsp; Clicks: 756 &nbsp;&nbsp; CTR: 5.1%
+                                </td>
+                                <td><a href="#" class="btn-view">View Newsletter</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dec 7, 2024</td>
+                                <td>B2B Marketing Tools Review</td>
+                                <td><span class="category-badge mention">Mention</span></td>
+                                <td class="performance-data">
+                                    Sent: 44,100 &nbsp;&nbsp; Opens: 14,120 &nbsp;&nbsp; Clicks: 584 &nbsp;&nbsp; CTR: 4.1%
+                                </td>
+                                <td><a href="#" class="btn-view">View Newsletter</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add spacing between tables -->
+            <div style="height: 40px;"></div>
+
+            <!-- High-Intent Clicks -->
+            <div class="high-intent-clicks">
+                <div class="section-header">
+                    <h3>High-Intent Clicks</h3>
+                    <a href="#" class="view-all">View all in Google Sheet →</a>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contact</th>
+                                <th>Company</th>
+                                <th>Domain</th>
+                                <th>Role</th>
+                                <th>Newsletter</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>David Miller</span>
+                                    </div>
+                                </td>
+                                <td>TechStart</td>
+                                <td>techstart.io</td>
+                                <td>Head of Sales</td>
+                                <td>
+                                    <span class="newsletter-link">Top SaaS Tools for 2025</span>
+                                    <span class="click-date">Dec 28, 2024</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Lisa Wong</span>
+                                    </div>
+                                </td>
+                                <td>GrowthCo</td>
+                                <td>growthco.com</td>
+                                <td>VP Marketing</td>
+                                <td>
+                                    <span class="newsletter-link">Sales Tech Stack Guide</span>
+                                    <span class="click-date">Dec 21, 2024</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar"></div>
+                                        <span>Sarah Chen</span>
+                                    </div>
+                                </td>
+                                <td>TechFlow</td>
+                                <td>techflow.com</td>
+                                <td>VP Sales</td>
+                                <td>
+                                    <span class="newsletter-link">Top SaaS Tools for 2025</span>
+                                    <span class="click-date">Dec 28, 2024</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="https://linkedin.com/" class="btn-linkedin">LinkedIn</a>
+                                        <a href="mailto:" class="btn-email">Email</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        const affiliateCtx = document.getElementById('affiliateRevenueChart').getContext('2d');
+        new Chart(affiliateCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                    {
+                        label: 'New Revenue',
+                        data: [800, 900, 1000, 1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500],
+                        backgroundColor: '#0066cc',
+                        stack: 'revenue'
+                    },
+                    {
+                        label: 'Recurring Revenue',
+                        data: [400, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+                        backgroundColor: '#4da6ff',
+                        stack: 'revenue'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            padding: 20
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        grid: {
+                            color: '#f0f0f0'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderRadius: {
+                            topLeft: 4,
+                            topRight: 4
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        enabled: false
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'rectRounded',
+                            padding: 20,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    customCanvasBackgroundColor: {
+                        id: 'customCanvasBackgroundColor',
+                        beforeDraw: (chart) => {
+                            const ctx = chart.ctx;
+                            ctx.save();
+                            ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            
+                            chart.data.datasets.forEach((dataset, datasetIndex) => {
+                                const meta = chart.getDatasetMeta(datasetIndex);
+                                meta.data.forEach((bar, index) => {
+                                    const data = dataset.data[index];
+                                    const position = bar.getCenterPoint();
+                                    
+                                    // Only draw text if bar height is sufficient
+                                    if (bar.height > 20) {
+                                        ctx.fillStyle = '#fff';
+                                        ctx.fillText('$' + data, position.x, position.y);
+                                    }
+                                });
+                            });
+                            ctx.restore();
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
